@@ -3,8 +3,6 @@ import sys
 import sqlite3 as sql
 app=Flask(__name__)
 
-import tweepy
- 
 # Import the necessary package to process data in JSON format
 try:
     import json
@@ -28,15 +26,6 @@ def Tweets():
         CONSUMER_SECRET=request.form['CONSUMER_SECRET']
 
         oauth = OAuth(ACCESS_TOKEN, ACCESS_SECRET, CONSUMER_KEY, CONSUMER_SECRET)
-        auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-        auth.set_access_token(ACCESS_TOKEN,ACCESS_SECRET)
-        api = tweepy.API(auth)
-
-        # user = api.me()
- 
-        # print('Name: ' + user.name)
-        # print('Location: ' + user.location)
-        # print('Friends: ' + str(user.friends_count))
 
         # Initiate the connection to Twitter Streaming API
         twitter_stream = TwitterStream(auth=oauth)
@@ -79,7 +68,7 @@ def Tweets():
         tweets_filename = 'testnew.json'
         tweets_file = open(tweets_filename, "r")
         con=sql.connect("Twitter_database.db")
-        con.execute("DROP TABLE MyTweets")
+        con.execute("DROP TABLE IF EXISTS MyTweets")
         con.execute("CREATE TABLE MyTweets(UserID TEXT,TweetID TEXT,TweetTime TEXT,Urls TEXT)")
         for line in tweets_file:
             try:
@@ -94,7 +83,6 @@ def Tweets():
                         continue
                     t_uid = tweet['user']['id']
                     q1="INSERT INTO MyTweets(UserID,TweetID,TweetTime,Urls) values (\'" + str(t_uid) + "\',\'" + str(t_id) + "\',\'" + str(t_ct) +"\',\'" + str(t_text) + "\')"
-                    #print(q1)
                     cur.execute(q1)
                     con.commit()
 

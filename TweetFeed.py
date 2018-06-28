@@ -45,7 +45,6 @@ def Tweets():
         # Get a sample of the public data following through Twitter
         # iterator = twitter_stream.statuses.sample()
         #twitter_userstream = TwitterStream(auth=oauth, domain='userstream.twitter.com')
-        #user="RahulGandi"
         # iterator = twitter_stream.statuses.user_timeline(user_id="3258524467")
         iterator = twitter_api.statuses.home_timeline()
         #iterator = api.home_timeline()
@@ -94,7 +93,6 @@ def Tweets():
                     if(t_text==''):
                         continue
                     t_uid = tweet['user']['id']
-                    #q1="INSERT INTO MyTweets(UserID,TweetID,TweetTime,Urls) VALUES(\'"+str(t_uid)+"\',\'"+str(t_idt)+"\',\'"+str(t_ct)+"\',\'"+str(t_text)+"\')"
                     q1="INSERT INTO MyTweets(UserID,TweetID,TweetTime,Urls) values (\'" + str(t_uid) + "\',\'" + str(t_id) + "\',\'" + str(t_ct) +"\',\'" + str(t_text) + "\')"
                     #print(q1)
                     cur.execute(q1)

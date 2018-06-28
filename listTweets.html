@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<body align="center" bgcolor="LightGray">
+		<marquee>
+			<h2>Your recent urls contained in your tweets: click to explore..!!</h2>
+		</marquee>
+		<table border=5 align="center" cellspacing="10" bgcolor="lightGreen" bordercolor="Black">
+			<thead>
+				<td>UserID</td>
+				<td>TweetID</td>
+				<td>TweetTime</td>
+				<td>Urls</td>
+			</thead>
+			{% for row in rows %}
+				<tr>
+					<td>{{row["UserID"]}}</td>
+					<td>{{row["TweetID"]}}</td>
+					<td>{{row["TweetTime"]}}</td>
+					<td><a href="{{row['Urls']}}">{{row["Urls"]}}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>
